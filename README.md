@@ -12,26 +12,30 @@
 
 ---
 
-## 📸 Platform UI & Experience Screenshots
+## 📸 Platform UI & Screenshots
 
-### 1. 3-Column AI Shopping Agent Studio (`/shop`)
-> *Live conversational search, Speech-to-Intent microphone, grounded product listings with 94% match scores, and side-by-side spec comparison table.*
+<div align="center">
 
-![MK SHOP AI Shopping Agent Workspace](screenshots/ai_shopping_workspace.jpg)
+### 1. 🤖 3-Column AI Shopping Agent Studio (`/shop`)
+*Live natural language chat, Speech-to-Intent voice microphone, grounded merchant listings (94% Match), and side-by-side spec comparison table.*
 
----
-
-### 2. Next-Gen Modern Split-Screen Hero (`/`)
-> *Clean Apple/Linear-inspired dark UI with interactive Target Country Pills (🇵🇰 Pakistan, 🇬🇧 UK, 🇺🇸 USA, 🇦🇪 UAE), sample prompts, and live MCP Gateway status.*
-
-![MK SHOP Landing Page Hero](screenshots/landing_page_hero.jpg)
+<img src="screenshots/ai_shopping_workspace.jpg" alt="MK SHOP AI Shopping Agent Workspace" width="100%" style="border-radius: 12px; margin-bottom: 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
 
 ---
 
-### 3. Explicit Order Review & Simulated Payment Mode
-> *Protected checkout flow with one-time verification tokens and clear simulation disclosure.*
+### 2. ⚡ Modern Split-Screen Hero Workspace (`/`)
+*Apple/Linear-inspired dark UI with interactive Target Country Selector pills (🇵🇰, 🇬🇧, 🇺🇸, 🇦🇪, 🇸🇦), instant prompt chips, and live MCP status.*
 
-![MK SHOP Simulated Payment Confirmation](screenshots/simulated_checkout_payment.jpg)
+<img src="screenshots/landing_page_hero.jpg" alt="MK SHOP Landing Page Hero" width="100%" style="border-radius: 12px; margin-bottom: 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+
+---
+
+### 3. 🛡️ Explicit Order Review & Simulated Checkout Modal
+*Protected order confirmation workflow with one-time verification tokens and explicit demo simulation disclosure.*
+
+<img src="screenshots/simulated_checkout_payment.jpg" alt="MK SHOP Simulated Payment Confirmation" width="100%" style="border-radius: 12px; margin-bottom: 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+
+</div>
 
 ---
 
