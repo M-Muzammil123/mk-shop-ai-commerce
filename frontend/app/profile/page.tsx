@@ -7,6 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import api from "../../services/api";
 import { User, ShoppingBag, Heart, Shield, Settings, CheckCircle, Clock, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/format";
 
 interface Order {
   id: string;
@@ -162,7 +163,7 @@ function ProfilePageContent() {
                         {order.items.map((item) => (
                           <div key={item.id} className="flex justify-between items-center text-xs">
                             <span className="text-gray-600 dark:text-gray-400">{item.product?.name || "Product Item"} (x{item.quantity})</span>
-                            <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
+                            <span className="font-bold">${formatPrice(Number(item.price) * item.quantity)}</span>
                           </div>
                         ))}
                       </div>
@@ -177,7 +178,7 @@ function ProfilePageContent() {
                           </span>
                         </div>
                         <div className="text-sm font-extrabold">
-                          Total: ${order.total_amount.toFixed(2)}
+                          Total: ${formatPrice(order.total_amount)}
                         </div>
                       </div>
 
@@ -206,7 +207,7 @@ function ProfilePageContent() {
                       <div className="p-4 space-y-3">
                         <div>
                           <h3 className="font-semibold text-xs line-clamp-1">{item.product?.name}</h3>
-                          <p className="text-sm font-bold mt-1">${item.product?.price?.toFixed(2)}</p>
+                          <p className="text-sm font-bold mt-1">${formatPrice(item.product?.price)}</p>
                         </div>
                         <button
                           onClick={() => handleRemoveWishlist(item.product)}

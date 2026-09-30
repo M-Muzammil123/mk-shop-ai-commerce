@@ -58,17 +58,17 @@
 
 /* Glassmorphism Styles */
 .glass {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
 }
 
 .dark .glass {
-  background: rgba(10, 10, 15, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(15, 23, 42, 0.90);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(51, 65, 85, 0.7);
 }
 
 .glass-premium {
@@ -125,3 +125,46 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(128, 128, 128, 0.5);
 }
+
+/* AI Dazzling Card & Aura Effects */
+.shimmer-ai-border {
+  position: relative;
+  background-clip: padding-box;
+}
+
+.shimmer-ai-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.35), rgba(147, 51, 234, 0.35), rgba(16, 185, 129, 0.25));
+  opacity: 0.6;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.shimmer-ai-border:hover::before {
+  opacity: 1;
+  filter: drop-shadow(0 0 14px rgba(99, 102, 241, 0.35));
+}
+
+@keyframes holographic-sweep {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.holo-gradient {
+  background: linear-gradient(120deg, #3b82f6, #8b5cf6, #ec4899, #10b981, #3b82f6);
+  background-size: 300% 300%;
+  animation: holographic-sweep 6s ease infinite;
+}
+
+.card-ai-glow {
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.card-ai-glow:hover {
+  box-shadow: 0 14px 45px -10px rgba(59, 130, 246, 0.25), 0 0 25px 2px rgba(139, 92, 246, 0.15);
+}
+

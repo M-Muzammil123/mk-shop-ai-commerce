@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
 import { Search, Loader2, Mail, Phone, ShoppingBag, Calendar, User } from "lucide-react";
+import { formatPrice } from "@/lib/format";
 
 interface Customer {
   id: string;
@@ -122,7 +123,7 @@ export default function AdminCustomersPage() {
                         <ShoppingBag className="w-3 h-3 text-gray-400" />{customer.orders_count}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-right text-xs font-extrabold tabular-nums text-emerald-500">${customer.total_spent.toFixed(2)}</td>
+                    <td className="py-3.5 px-4 text-right text-xs font-extrabold tabular-nums text-emerald-500">${formatPrice(customer.total_spent)}</td>
                     <td className="py-3.5 px-4 text-center">
                       <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold capitalize ${customer.role === "admin" ? "bg-violet-100 text-violet-600 dark:bg-violet-950/30 dark:text-violet-400" : "bg-gray-100 text-gray-500 dark:bg-gray-800"}`}>
                         <User className="w-3 h-3" />{customer.role}

@@ -5,6 +5,7 @@ import api from "../../../services/api";
 import Link from "next/link";
 import { CheckCircle2, Clock, Truck, Package, Home, ArrowLeft, ShieldCheck } from "lucide-react";
 import { SlideUp } from "../../../components/motion/SlideUp";
+import { formatPrice } from "@/lib/format";
 
 interface OrderDetail {
   id: string;
@@ -119,7 +120,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
       {/* Summary Box */}
       <div className="p-6 rounded-3xl glass-premium border border-gray-200 dark:border-gray-800 flex justify-between items-center text-sm font-bold">
         <span>Total Amount Charged:</span>
-        <span className="text-xl font-black text-blue-600 dark:text-blue-400">${order.total_amount.toFixed(2)}</span>
+        <span className="text-xl font-black text-blue-600 dark:text-blue-400">${formatPrice(order.total_amount)}</span>
       </div>
     </div>
   );

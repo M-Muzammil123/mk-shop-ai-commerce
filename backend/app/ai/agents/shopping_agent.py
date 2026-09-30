@@ -77,7 +77,7 @@ class ShoppingAgent:
         target_country = (country or (db_session.country if db_session else None) or settings.DEFAULT_COUNTRY).upper()
         target_currency = (currency or (db_session.currency if db_session else None) or COUNTRY_CURRENCY_MAP.get(target_country, "PKR")).upper()
 
-        reqs = self.router.openai.extract_structured_requirements(
+        reqs = self.router.get_conversational_provider().extract_structured_requirements(
             user_prompt=user_message,
             country=target_country,
             currency=target_currency
@@ -234,7 +234,7 @@ class ShoppingAgent:
                     session_id=db_session.id,
                     profile_id=user_id,
                     provider=settings.AI_PROVIDER,
-                    model=settings.OPENAI_MODEL,
+                    model=settings.GEMINI_MODEL if settings.AI_PROVIDER == "gemini" else settings.OPENAI_MODEL,
                     status="completed",
                     user_prompt=user_message,
                     final_response=reply_message,

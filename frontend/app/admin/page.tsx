@@ -23,6 +23,7 @@ import {
   MousePointer,
   AlertCircle
 } from "lucide-react";
+import { formatPrice } from "@/lib/format";
 import { toast } from "sonner";
 
 /* ───────── Types ───────── */
@@ -360,10 +361,10 @@ export default function AdminDashboardPage() {
                 </span>
                 <div className="flex-grow min-w-0">
                   <p className="text-xs font-semibold truncate">{item.name}</p>
-                  <p className="text-[10px] text-gray-400">{item.sold_quantity} sold · ${item.price.toFixed(2)}</p>
+                  <p className="text-[10px] text-gray-400">{item.sold_quantity} sold · ${formatPrice(item.price)}</p>
                 </div>
                 <span className="text-xs font-extrabold text-emerald-500 tabular-nums shrink-0">
-                  ${(item.sold_quantity * item.price).toLocaleString()}
+                  ${(Number(item.sold_quantity) * Number(item.price)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
             ))}
@@ -402,7 +403,7 @@ export default function AdminDashboardPage() {
                     </td>
                     <td className="py-3.5 pr-4 text-xs text-gray-500">{order.created_at}</td>
                     <td className="py-3.5 pr-4 text-xs font-extrabold text-right tabular-nums">
-                      ${order.total_amount.toFixed(2)}
+                      ${formatPrice(order.total_amount)}
                     </td>
                     <td className="py-3.5 text-right">
                       <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold capitalize ${badge.bg} ${badge.text}`}>

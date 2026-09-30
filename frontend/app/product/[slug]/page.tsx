@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { SlideUp } from "../../../components/motion/SlideUp";
 import { FadeIn } from "../../../components/motion/FadeIn";
+import { formatPrice } from "@/lib/format";
 
 interface Review {
   id: string;
@@ -208,9 +209,9 @@ export default function ProductDetailsPage({ params }: { params: Promise<{ slug:
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">SKU: {product.sku}</span>
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight mt-1">{product.name}</h1>
             <div className="flex items-center gap-3 mt-3">
-              <span className="text-2xl sm:text-3xl font-black text-gray-950 dark:text-white">${product.price.toFixed(2)}</span>
+              <span className="text-2xl sm:text-3xl font-black text-gray-950 dark:text-white">${formatPrice(product.price)}</span>
               {product.compare_at_price && (
-                <span className="text-lg line-through text-gray-400 font-semibold">${product.compare_at_price.toFixed(2)}</span>
+                <span className="text-lg line-through text-gray-400 font-semibold">${formatPrice(product.compare_at_price)}</span>
               )}
             </div>
           </div>

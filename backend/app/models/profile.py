@@ -19,6 +19,7 @@ class Profile(Base):
     last_name = Column(String(100), nullable=True)
     email = Column(String(255), unique=True, index=True, nullable=False)
     phone = Column(String(20), unique=True, index=True, nullable=True)
+    password_hash = Column(String(255), nullable=True)
     role = Column(String(20), default=UserRole.CUSTOMER.value, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=text("now()"), nullable=False)
     updated_at = Column(DateTime(timezone=True), server_default=text("now()"), onupdate=text("now()"), nullable=False)

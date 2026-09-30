@@ -7,6 +7,7 @@ import { Sparkles, Heart, ShoppingBag, Check, BarChart2, Zap } from "lucide-reac
 import { useCartStore } from "../../store/useCartStore";
 import { useAuthStore } from "../../store/useAuthStore";
 import { toast } from "sonner";
+import { formatPrice } from "../../lib/format";
 
 export interface ProductCardProps {
   product: {
@@ -183,10 +184,10 @@ export function ProductCard({
             {product.name}
           </Link>
           <p className="text-lg font-black mt-1 text-gray-950 dark:text-white">
-            ${product.price.toFixed(2)}
+            ${formatPrice(product.price)}
             {product.compare_at_price && (
               <span className="text-xs line-through text-gray-400 font-semibold ml-2">
-                ${product.compare_at_price.toFixed(2)}
+                ${formatPrice(product.compare_at_price)}
               </span>
             )}
           </p>

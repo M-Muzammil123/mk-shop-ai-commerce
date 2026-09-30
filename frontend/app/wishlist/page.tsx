@@ -7,6 +7,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, ShoppingCart, Trash2, ArrowRight, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/format";
 
 export default function WishlistPage() {
   const { isAuthenticated } = useAuthStore();
@@ -132,7 +133,7 @@ export default function WishlistPage() {
                   {/* Actions & Price */}
                   <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-150 dark:border-gray-850">
                     <div>
-                      <span className="text-base font-extrabold">${Number(product.price).toFixed(2)}</span>
+                      <span className="text-base font-extrabold">${formatPrice(product.price)}</span>
                     </div>
 
                     <button

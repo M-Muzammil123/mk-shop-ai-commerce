@@ -19,6 +19,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/format";
 
 /* ───────── Types ───────── */
 interface ProductImage {
@@ -388,10 +389,10 @@ export default function AdminProductsPage() {
                     </td>
 
                     <td className="py-3.5 px-4 text-xs font-bold text-right tabular-nums">
-                      ${product.price.toFixed(2)}
+                      ${formatPrice(product.price)}
                       {product.compare_at_price && (
                         <span className="block text-[10px] text-gray-400 line-through">
-                          ${product.compare_at_price.toFixed(2)}
+                          ${formatPrice(product.compare_at_price)}
                         </span>
                       )}
                     </td>

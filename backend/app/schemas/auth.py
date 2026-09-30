@@ -41,6 +41,8 @@ class ProfileResponse(ProfileBase):
     id: UUID
     created_at: datetime
     updated_at: datetime
+    access_token: Optional[str] = None
+    token_type: Optional[str] = "bearer"
 
     class Config:
         from_attributes = True
@@ -65,6 +67,25 @@ class LoginRequest(BaseModel):
     email: Optional[EmailStr] = None
     phone: Optional[str] = None
     password: Optional[str] = None
+
+
+class GoogleLoginRequest(BaseModel):
+    id_token: Optional[str] = None
+    credential: Optional[str] = None
+    access_token: Optional[str] = None
+    code: Optional[str] = None
+    redirect_uri: Optional[str] = None
+    role: Optional[str] = "customer"
+
+
+class AppleLoginRequest(BaseModel):
+    id_token: Optional[str] = None
+    code: Optional[str] = None
+    email: Optional[EmailStr] = None
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    user: Optional[str] = None
+    role: Optional[str] = "customer"
 
 
 class VerifyOTPRequest(BaseModel):

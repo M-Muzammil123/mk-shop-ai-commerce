@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "production_ready_secret_key_change_me_in_prod"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
+    GOOGLE_PROJECT_ID: str = ""
 
     
     # Supabase Settings
@@ -41,11 +44,11 @@ class Settings(BaseSettings):
     # AI Provider Settings
     OPENAI_API_KEY: str = ""
     GEMINI_API_KEY: str = ""
-    AI_PROVIDER: str = "openai" # "openai", "gemini", "hybrid"
+    AI_PROVIDER: str = "gemini" # "openai", "gemini", "hybrid"
     RESEARCH_PROVIDER: str = "gemini"
     OPENAI_MODEL: str = "gpt-4o"
     OPENAI_REALTIME_MODEL: str = "gpt-4o-realtime-preview"
-    GEMINI_MODEL: str = "gemini-1.5-pro"
+    GEMINI_MODEL: str = "gemini-2.5-flash"
     
     # MCP Gateway Settings
     MCP_ENABLED: bool = True
@@ -63,6 +66,8 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
     ]
 
     model_config = SettingsConfigDict(

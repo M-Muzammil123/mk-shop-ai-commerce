@@ -8,6 +8,7 @@ import api from "../../services/api";
 import { CreditCard, CheckCircle, MapPin, ShieldCheck, ArrowLeft, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
+import { formatPrice } from "@/lib/format";
 
 interface Address {
   id: string;
@@ -163,7 +164,7 @@ export default function CheckoutPage() {
             </div>
             <div className="flex justify-between border-t border-gray-100 dark:border-gray-900 pt-3 font-bold text-sm">
               <span>Total:</span>
-              <span>${placedOrder.total_amount?.toFixed(2) || total.toFixed(2)}</span>
+              <span>${formatPrice(placedOrder.total_amount ?? total)}</span>
             </div>
           </div>
         </div>
@@ -349,7 +350,7 @@ export default function CheckoutPage() {
                     </span>
                     <span className="line-clamp-1">{item.product?.name}</span>
                   </div>
-                  <span className="font-bold">${(item.product?.price * item.quantity).toFixed(2)}</span>
+                  <span className="font-bold">${formatPrice(Number(item.product?.price) * item.quantity)}</span>
                 </div>
               ))}
             </div>
@@ -357,27 +358,27 @@ export default function CheckoutPage() {
             <div className="border-t border-gray-100 dark:border-gray-900 pt-4 space-y-3 text-xs text-gray-500">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="font-bold text-foreground">${subtotal.toFixed(2)}</span>
+                <span className="font-bold text-foreground">${formatPrice(subtotal)}</span>
               </div>
               {discount > 0 && (
                 <div className="flex justify-between text-emerald-600">
                   <span>Discount</span>
-                  <span className="font-bold">-${discount.toFixed(2)}</span>
+                  <span className="font-bold">-${formatPrice(discount)}</span>
                 </div>
               )}
               <div className="flex justify-between">
                 <span>Tax</span>
-                <span className="font-bold text-foreground">${tax.toFixed(2)}</span>
+                <span className="font-bold text-foreground">${formatPrice(tax)}</span>
               </div>
               <div className="flex justify-between">
                 <span>Shipping</span>
-                <span className="font-bold text-foreground">${shipping.toFixed(2)}</span>
+                <span className="font-bold text-foreground">${formatPrice(shipping)}</span>
               </div>
             </div>
 
             <div className="flex justify-between items-center text-sm font-extrabold border-t border-gray-100 dark:border-gray-900 pt-4">
               <span>Total amount</span>
-              <span className="text-lg">${total.toFixed(2)}</span>
+              <span className="text-lg">${formatPrice(total)}</span>
             </div>
 
             <button

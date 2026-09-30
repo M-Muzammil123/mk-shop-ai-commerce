@@ -14,6 +14,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/format";
 
 interface OrderItem {
   id: string;
@@ -143,7 +144,7 @@ export default function AdminOrdersPage() {
                     <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold capitalize ${cfg.bg} ${cfg.text}`}>
                       <StatusIcon className="w-3 h-3" />{order.status}
                     </span>
-                    <span className="text-sm font-extrabold tabular-nums">${order.total_amount.toFixed(2)}</span>
+                    <span className="text-sm font-extrabold tabular-nums">${formatPrice(order.total_amount)}</span>
                     {isExpanded ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
                   </div>
                 </div>
@@ -159,7 +160,7 @@ export default function AdminOrdersPage() {
                           {order.items.map((item) => (
                             <div key={item.id} className="flex justify-between text-xs">
                               <span>{item.product_name} <span className="text-gray-400">×{item.quantity}</span></span>
-                              <span className="font-bold">${(item.price * item.quantity).toFixed(2)}</span>
+                              <span className="font-bold">${formatPrice(Number(item.price) * item.quantity)}</span>
                             </div>
                           ))}
                         </div>

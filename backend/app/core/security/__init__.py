@@ -59,9 +59,28 @@ def decode_token(token: str) -> Optional[Dict[str, Any]]:
         )
 
 
+def hash_password(password: str) -> str:
+    """Hash a plaintext password using bcrypt."""
+    import bcrypt
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a plaintext password against a bcrypt hash."""
+    if not hashed_password or not plain_password:
+        return False
+    import bcrypt
+    try:
+        return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password.encode("utf-8"))
+    except Exception:
+        return False
+
+
 __all__ = [
     "create_access_token",
     "decode_token",
+    "hash_password",
+    "verify_password",
     "validate_url_for_ssrf",
     "is_ip_private_or_restricted",
     "sanitize_and_validate_url",

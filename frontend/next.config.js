@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
   images: {
     remotePatterns: [
       {
@@ -8,11 +7,6 @@ const nextConfig = {
         hostname: "**",
       },
     ],
-  },
-  // Suppress Three.js SSR warnings
-  webpack: (config) => {
-    config.externals = [...(config.externals || [])];
-    return config;
   },
 };
 

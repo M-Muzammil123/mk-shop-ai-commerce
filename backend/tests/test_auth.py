@@ -130,3 +130,34 @@ def test_address_endpoints(client, db_session):
         # Test 4: GET /addresses (should be empty now)
         res_get_empty = client.get("/api/v1/auth/addresses", headers=headers)
         assert len(res_get_empty.json()) == 0
+
+
+def test_google_login_endpoint(client, db_session):
+    # Test Google Login with mock/testing token
+    payload = {
+        "id_token": "mock_google_token_123",
+        "role": "customer"
+    }
+    response = client.post("/api/v1/auth/google", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert "access_token" in data
+    assert data["token_type"] == "bearer"
+    assert data["profile"]["email"] == "google.user@example.com"
+    assert data["profile"]["first_name"] == "Google"
+
+
+def test_apple_login_endpoint(client, db_session):
+    # Test Apple Login with mock/testing token
+    payload = {
+        "id_token": "mock_apple_token_123",
+        "role": "customer"
+    }
+    response = client.post("/api/v1/auth/apple", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert "access_token" in data
+    assert data["token_type"] == "bearer"
+    assert data["profile"]["email"] == "apple.user@example.com"
+    assert data["profile"]["first_name"] == "Apple"
+

@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Phone, Lock, User, ArrowRight, KeyRound, Globe, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import api from "../../services/api";
+import GoogleLoginButton from "../../components/auth/GoogleLoginButton";
+import AppleLoginButton from "../../components/auth/AppleLoginButton";
 
 function AuthComponent() {
   const router = useRouter();
@@ -25,6 +27,9 @@ function AuthComponent() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [otpToken, setOtpToken] = useState("");
+
+  // Note: Google OAuth code exchange is now handled by the popup flow
+  // inside GoogleLoginButton.tsx — no redirect-based code handling needed here.
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -56,7 +61,7 @@ function AuthComponent() {
   const handleSignupSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await register({
+      const res: any = await register({
         email,
         password,
         first_name: firstName,
@@ -65,13 +70,14 @@ function AuthComponent() {
         role: "customer"
       });
       
-      toast.success("Account profile registered successfully!");
-      if (phone) {
+      toast.success("Account registered successfully! Welcome.");
+      if (res?.access_token) {
+        router.push(redirect);
+      } else if (phone) {
         setMode("otp");
         toast.info("An OTP code has been sent to your phone number.");
       } else {
         setMode("login");
-        toast.info("A verification link has been sent to your email.");
       }
     } catch (err) {}
   };
@@ -192,21 +198,20 @@ function AuthComponent() {
                   </button>
                 </form>
 
-                {/* Google Sign In mock */}
+                {/* Google Sign In */}
                 <div className="relative flex items-center justify-center py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-t border-gray-100 dark:border-gray-900">
                   <span className="bg-background px-4 absolute">Or Connect With</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={async () => {
-                    toast.success("Simulated Google authentication success!");
-                    // Trigger simple login locally
-                    await login({ email: "guest@example.com", password: "mocked_google_sso" });
-                  }}
-                  className="w-full py-3.5 rounded-full border border-gray-200 dark:border-gray-850 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all font-semibold flex items-center justify-center gap-2 text-xs"
-                >
-                  <Globe className="w-4 h-4 text-blue-500 animate-pulse" /> Google SSO Auth
-                </button>
+                <div className="space-y-2.5">
+                  <GoogleLoginButton
+                    text="signin_with"
+                    onSuccess={() => router.push(redirect)}
+                  />
+                  <AppleLoginButton
+                    text="signin_with"
+                    onSuccess={() => router.push(redirect)}
+                  />
+                </div>
 
                 <div className="text-center text-xs text-gray-500 pt-2">
                   Don't have an account?{" "}
@@ -300,6 +305,21 @@ function AuthComponent() {
                     {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Sign Up <ArrowRight className="w-4 h-4" /></>}
                   </button>
                 </form>
+
+                {/* Google Sign Up */}
+                <div className="relative flex items-center justify-center py-2 text-[10px] font-bold text-gray-400 uppercase tracking-widest border-t border-gray-100 dark:border-gray-900">
+                  <span className="bg-background px-4 absolute">Or Sign Up With</span>
+                </div>
+                <div className="space-y-2.5">
+                  <GoogleLoginButton
+                    text="signup_with"
+                    onSuccess={() => router.push(redirect)}
+                  />
+                  <AppleLoginButton
+                    text="signup_with"
+                    onSuccess={() => router.push(redirect)}
+                  />
+                </div>
 
                 <div className="text-center text-xs text-gray-500 pt-2">
                   Already have an account?{" "}

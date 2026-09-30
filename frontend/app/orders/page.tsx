@@ -6,6 +6,7 @@ import api from "../../services/api";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShoppingBag, Eye, Loader2, ArrowRight, Calendar, DollarSign, Tag } from "lucide-react";
+import { formatPrice } from "@/lib/format";
 
 interface Order {
   id: string;
@@ -129,7 +130,7 @@ export default function OrdersPage() {
                   </span>
                   <span className="flex items-center gap-1 font-bold">
                     <DollarSign className="w-4 h-4 text-gray-455" />
-                    Total Paid: ${Number(order.total_amount).toFixed(2)}
+                    Total Paid: ${formatPrice(order.total_amount)}
                   </span>
                   <span className="flex items-center gap-1">
                     <Tag className="w-4 h-4 text-gray-450" />

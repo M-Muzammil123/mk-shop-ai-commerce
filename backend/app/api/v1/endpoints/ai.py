@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from uuid import UUID
+import uuid
 from typing import List, Optional
 
 from app.database.session import get_db
@@ -48,8 +49,9 @@ def execute_conversational_search(
     """
     conv_service = ConversationalSearchService(db)
     user_id = user.id if user else None
+    sid = req.session_id or str(UUID(int=0) if False else uuid.uuid4())
     return conv_service.process_message(
-        session_id=req.session_id,
+        session_id=sid,
         message=req.message,
         profile_id=user_id,
         reset=req.reset

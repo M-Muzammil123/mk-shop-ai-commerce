@@ -72,12 +72,19 @@ def create_category(
     return cat_repo.create(req)
 
 @router.get("/{slug}", response_model=ProductResponse)
-def get_product_by_slug(slug: str, db: Session = Depends(get_db)):
+def get_product(slug: str, db: Session = Depends(get_db)):
     """
-    Retrieves individual product details by slug.
+    Retrieves individual product details by slug or UUID.
     """
     prod_repo = ProductRepository(db)
-    product = prod_repo.get_by_slug(slug)
+    product = None
+    try:
+        val_uuid = UUID(slug)
+        product = prod_repo.get(val_uuid)
+    except (ValueError, TypeError):
+        pass
+    if not product:
+        product = prod_repo.get_by_slug(slug)
     if not product:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
     return product

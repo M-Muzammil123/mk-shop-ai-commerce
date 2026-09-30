@@ -21,6 +21,8 @@ interface AuthState {
   isAuthenticated: boolean;
   clearError: () => void;
   login: (payload: { email?: string; phone?: string; password?: string }) => Promise<void>;
+  loginWithGoogle: (payload: { id_token?: string; credential?: string; access_token?: string; code?: string; redirect_uri?: string; role?: string }) => Promise<void>;
+  loginWithApple: (payload: { id_token?: string; code?: string; email?: string; first_name?: string; last_name?: string; role?: string }) => Promise<void>;
   register: (payload: { email: string; password?: string; first_name?: string; last_name?: string; phone?: string; role?: string }) => Promise<void>;
   verifyOtp: (payload: { phone: string; token: string }) => Promise<void>;
   logout: () => void;
@@ -55,11 +57,55 @@ export const useAuthStore = create<AuthState>()(
         }
       },
 
+      loginWithGoogle: async (payload) => {
+        set({ loading: true, error: null });
+        try {
+          const res = await api.post("/auth/google", payload);
+          const { access_token, profile } = res.data;
+          set({
+            token: access_token,
+            user: profile,
+            isAuthenticated: true,
+            loading: false,
+          });
+        } catch (err: any) {
+          set({ error: err.message || "Google authentication failed", loading: false });
+          throw err;
+        }
+      },
+
+      loginWithApple: async (payload) => {
+        set({ loading: true, error: null });
+        try {
+          const res = await api.post("/auth/apple", payload);
+          const { access_token, profile } = res.data;
+          set({
+            token: access_token,
+            user: profile,
+            isAuthenticated: true,
+            loading: false,
+          });
+        } catch (err: any) {
+          set({ error: err.message || "Apple authentication failed", loading: false });
+          throw err;
+        }
+      },
+
       register: async (payload) => {
         set({ loading: true, error: null });
         try {
-          await api.post("/auth/register", payload);
-          set({ loading: false });
+          const res = await api.post("/auth/register", payload);
+          if (res.data?.access_token) {
+            set({
+              token: res.data.access_token,
+              user: res.data,
+              isAuthenticated: true,
+              loading: false,
+            });
+          } else {
+            set({ loading: false });
+          }
+          return res.data;
         } catch (err: any) {
           set({ error: err.message || "Failed to register", loading: false });
           throw err;

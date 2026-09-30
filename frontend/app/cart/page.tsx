@@ -8,6 +8,7 @@ import { Trash2, ShoppingBag, Percent, ArrowRight, Sparkles, RefreshCw, CheckCir
 import { toast } from "sonner";
 import api from "../../services/api";
 import { SlideUp } from "../../components/motion/SlideUp";
+import { formatPrice } from "@/lib/format";
 
 export default function CartPage() {
   const { isAuthenticated } = useAuthStore();
@@ -154,7 +155,7 @@ export default function CartPage() {
             </span>
             {aiAssistantData.potential_savings > 0 && (
               <span className="text-xs font-black px-3 py-1 rounded-full bg-emerald-600 text-white">
-                Potential Savings: ${aiAssistantData.potential_savings.toFixed(2)}
+                Potential Savings: ${formatPrice(aiAssistantData.potential_savings)}
               </span>
             )}
           </div>
@@ -204,7 +205,7 @@ export default function CartPage() {
                   <Link href={`/product/${item.product.slug}`} className="font-bold text-base hover:text-blue-500 transition-colors line-clamp-1">
                     {item.product.name}
                   </Link>
-                  <p className="text-xs font-bold text-gray-400">${item.product.price.toFixed(2)} each</p>
+                  <p className="text-xs font-bold text-gray-400">${formatPrice(item.product.price)} each</p>
                 </div>
               </div>
 
@@ -226,7 +227,7 @@ export default function CartPage() {
                   </button>
                 </div>
 
-                <span className="text-base font-black text-gray-950 dark:text-white">${(item.product.price * item.quantity).toFixed(2)}</span>
+                <span className="text-base font-black text-gray-950 dark:text-white">${formatPrice(Number(item.product.price) * item.quantity)}</span>
 
                 <button
                   onClick={() => handleRemove(item.product.id)}
@@ -291,31 +292,31 @@ export default function CartPage() {
             <div className="space-y-3 pt-4 border-t border-gray-100 dark:border-gray-900 text-xs">
               <div className="flex justify-between text-gray-500">
                 <span>Subtotal</span>
-                <span className="font-bold text-gray-900 dark:text-white">${subtotal.toFixed(2)}</span>
+                <span className="font-bold text-gray-900 dark:text-white">${formatPrice(subtotal)}</span>
               </div>
 
               {discount > 0 && (
                 <div className="flex justify-between text-emerald-600 font-semibold">
                   <span>Discount</span>
-                  <span>-${discount.toFixed(2)}</span>
+                  <span>-${formatPrice(discount)}</span>
                 </div>
               )}
 
               <div className="flex justify-between text-gray-500">
                 <span>Estimated Tax</span>
-                <span className="font-bold text-gray-900 dark:text-white">${tax.toFixed(2)}</span>
+                <span className="font-bold text-gray-900 dark:text-white">${formatPrice(tax)}</span>
               </div>
 
               <div className="flex justify-between text-gray-500">
                 <span>Shipping</span>
                 <span className="font-bold text-gray-900 dark:text-white">
-                  {shipping === 0 ? "Free" : `$${shipping.toFixed(2)}`}
+                  {shipping === 0 ? "Free" : `$${formatPrice(shipping)}`}
                 </span>
               </div>
 
               <div className="flex justify-between text-base font-black text-gray-950 dark:text-white pt-3 border-t border-gray-100 dark:border-gray-900">
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>${formatPrice(total)}</span>
               </div>
             </div>
 

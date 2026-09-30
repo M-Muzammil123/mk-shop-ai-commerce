@@ -56,7 +56,7 @@ class AISearchRequest(BaseModel):
 
 class ConversationalSearchRequest(BaseModel):
     message: str
-    session_id: str
+    session_id: Optional[str] = None
     reset: bool = False
 
 
